@@ -74,7 +74,7 @@
  * @property {T} [data] - The actual payload returned from the server
  */
 
-const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api/v1';
+const BASE_URL = import.meta.env.VITE_API_URL || 'https://eaturia-backend.onrender.com/api/v1';
 
 // Helper to get auth headers
 const getHeaders = () => {
