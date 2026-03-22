@@ -57,6 +57,7 @@ export const SuperAdminDashboard: React.FC = () => {
 
   if (loading) return <Loader fullScreen />;
 
+  // User-interface starts here
   return (
     <div className="space-y-6 animate-fade-in">
       <div className="flex justify-between items-center mb-8">

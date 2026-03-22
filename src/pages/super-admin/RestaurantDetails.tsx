@@ -16,13 +16,10 @@ export const RestaurantDetails: React.FC = () => {
   const [admins, setAdmins] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const { showToast } = useToast();
-
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isAdminModalOpen, setIsAdminModalOpen] = useState(false);
-  
   const [editData, setEditData] = useState<any>({});
   const [adminData, setAdminData] = useState({ email: '', password: '' });
-  
   const [submitting, setSubmitting] = useState(false);
 
   // Loads restaurant profile and admin user list
