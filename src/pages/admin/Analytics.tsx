@@ -8,6 +8,7 @@ import {
 } from 'recharts';
 import { TrendingUp, Users, DollarSign, Package } from 'lucide-react';
 
+/** Advanced analytics dashboard showcasing restaurant performance, revenue trends, and popular items. */
 export const Analytics: React.FC = () => {
   const [orders, setOrders] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -15,6 +16,7 @@ export const Analytics: React.FC = () => {
   const { showToast } = useToast();
 
   useEffect(() => {
+    // Aggregates order data and item statistics for visualization
     const fetchData = async () => {
       try {
         const res = await api.restaurant.getOrdersByRestaurant();

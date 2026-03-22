@@ -7,6 +7,7 @@ import { useToast } from '../../context/ToastContext';
 import { Store, Utensils, ClipboardList, Users, QrCode, Copy, Check, Download } from 'lucide-react';
 import { QRCodeCanvas } from 'qrcode.react';
 
+/** Central command center for restaurant admins to view stats, manage profile, and access public menu links. */
 export const AdminDashboard: React.FC = () => {
   const [profile, setProfile] = useState<any>(null);
   const [menus, setMenus] = useState<any[]>([]);
@@ -17,6 +18,7 @@ export const AdminDashboard: React.FC = () => {
   const { showToast } = useToast();
 
   useEffect(() => {
+    // Loads essential restaurant data including profile, menus, and orders
     const load = async () => {
       try {
         const [profileRes, menusRes, ordersRes, adminsRes] = await Promise.allSettled([
@@ -47,6 +49,7 @@ export const AdminDashboard: React.FC = () => {
 
   const publicMenuUrl = `${window.location.origin}/m/${profile._id}`;
 
+  // Copies the public menu URL to the user's clipboard
   const copyToClipboard = () => {
     navigator.clipboard.writeText(publicMenuUrl);
     setCopied(true);
@@ -54,6 +57,7 @@ export const AdminDashboard: React.FC = () => {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  // Generates and downloads a PNG of the restaurant's unique QR code
   const downloadQR = () => {
     const canvas = document.getElementById('menu-qr') as HTMLCanvasElement;
     if (canvas) {

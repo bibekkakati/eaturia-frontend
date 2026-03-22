@@ -9,6 +9,7 @@ import { Modal } from '../../components/ui/Modal';
 import { Plus, Trash, CheckCircle, ListPlus } from 'lucide-react';
 import { ManageItemsModal } from './ManageItemsModal';
 
+/** Interface for managing multiple digital menus and their live status. */
 export const Menus: React.FC = () => {
   const [menus, setMenus] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -21,6 +22,7 @@ export const Menus: React.FC = () => {
   // Manage items modal state
   const [manageItemsMenuId, setManageItemsMenuId] = useState<string | null>(null);
 
+  // Retrieves all menus associated with the current restaurant
   const fetchMenus = async () => {
     try {
       const res = await api.restaurant.getMenusByRestaurant();
@@ -37,6 +39,7 @@ export const Menus: React.FC = () => {
     fetchMenus();
   }, []);
 
+  // Creates a new, empty menu container
   const handleCreateMenu = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newMenuName.trim()) return;
@@ -55,6 +58,7 @@ export const Menus: React.FC = () => {
     }
   };
 
+  // Removes a menu and its associated items from the system
   const handleDelete = async (id: string) => {
     try {
       await api.restaurant.deleteMenu(id);
@@ -65,6 +69,7 @@ export const Menus: React.FC = () => {
     }
   };
 
+  // Marks a specific menu as 'live' and publically accessible
   const handleActivate = async (id: string) => {
     try {
       await api.restaurant.liveMenu(id);

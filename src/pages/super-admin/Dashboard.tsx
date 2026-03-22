@@ -9,6 +9,7 @@ import { Loader } from '../../components/ui/Loader';
 import { Modal } from '../../components/ui/Modal';
 import { Plus, Store, ChevronRight } from 'lucide-react';
 
+/** Main dashboard for Super Admins to manage the entire restaurant network. */
 export const SuperAdminDashboard: React.FC = () => {
   const [restaurants, setRestaurants] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -19,6 +20,7 @@ export const SuperAdminDashboard: React.FC = () => {
   const [newRest, setNewRest] = useState({ name: '', address: '', phone: '', description: '', logo: '' });
   const [submitting, setSubmitting] = useState(false);
 
+  // Fetches the list of all restaurants from the administrative API
   const fetchRestaurants = async () => {
     try {
       const res = await api.admin.getRestaurants();
@@ -34,6 +36,7 @@ export const SuperAdminDashboard: React.FC = () => {
     fetchRestaurants();
   }, []);
 
+  // Handles the submission of the new restaurant creation form
   const handleCreate = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newRest.name || !newRest.address) return;

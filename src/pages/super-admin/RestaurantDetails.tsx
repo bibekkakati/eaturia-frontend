@@ -9,6 +9,7 @@ import { Loader } from '../../components/ui/Loader';
 import { Modal } from '../../components/ui/Modal';
 import { Store, ArrowLeft, Users, Shield, UserPlus, Power } from 'lucide-react';
 
+/** Detailed view and management for a specific restaurant. */
 export const RestaurantDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [restaurant, setRestaurant] = useState<any>(null);
@@ -24,6 +25,7 @@ export const RestaurantDetails: React.FC = () => {
   
   const [submitting, setSubmitting] = useState(false);
 
+  // Loads restaurant profile and admin user list
   const loadData = async () => {
     if (!id) return;
     try {
@@ -45,6 +47,7 @@ export const RestaurantDetails: React.FC = () => {
     loadData();
   }, [id]);
 
+  // Updates restaurant profile information
   const handleUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!id) return;
@@ -66,6 +69,7 @@ export const RestaurantDetails: React.FC = () => {
     }
   };
 
+  // Provisions a new administrator account for this restaurant
   const handleCreateAdmin = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!id) return;
@@ -83,6 +87,7 @@ export const RestaurantDetails: React.FC = () => {
     }
   };
 
+  // Toggles the restaurant's operational status (Active/Inactive)
   const handleToggleStatus = async () => {
     if (!id || !restaurant) return;
     try {

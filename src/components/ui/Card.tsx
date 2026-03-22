@@ -5,6 +5,7 @@ interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   padding?: 'none' | 'sm' | 'md' | 'lg';
 }
 
+/** Versatile card container for grouping related content with optional borders and elevations. */
 export const Card: React.FC<CardProps> = ({
   children,
   variant = 'default',

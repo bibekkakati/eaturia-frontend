@@ -12,6 +12,7 @@ interface ManageItemsModalProps {
   menuId: string | null;
 }
 
+/** Modal interface for adding, editing, and deleting items within a specific menu. */
 export const ManageItemsModal: React.FC<ManageItemsModalProps> = ({ isOpen, onClose, menuId }) => {
   const [loading, setLoading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -33,6 +34,7 @@ export const ManageItemsModal: React.FC<ManageItemsModalProps> = ({ isOpen, onCl
     }
   }, [isOpen, menuId]);
 
+  // Loads all items for the current menu context
   const fetchMenu = async () => {
     setLoading(true);
     try {
@@ -79,6 +81,7 @@ export const ManageItemsModal: React.FC<ManageItemsModalProps> = ({ isOpen, onCl
     setMenuItems(updated);
   };
 
+  // Saves or updates an item's details in the menu
   const handleSave = async () => {
     if (!menuId) return;
     setSubmitting(true);

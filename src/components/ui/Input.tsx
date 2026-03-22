@@ -6,6 +6,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   icon?: React.ReactNode;
 }
 
+/** Standardized text input field with support for labels, icons, and error messages. */
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ label, error, icon, className = '', id, ...props }, ref) => {
     const inputId = id || Math.random().toString(36).substring(7);

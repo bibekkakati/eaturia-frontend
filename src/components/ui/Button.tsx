@@ -8,6 +8,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   fullWidth?: boolean;
 }
 
+/** Reusable button component with multiple variants, sizes, and loading states. */
 export const Button: React.FC<ButtonProps> = ({
   children,
   variant = 'primary',

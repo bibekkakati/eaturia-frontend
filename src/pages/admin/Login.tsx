@@ -8,6 +8,7 @@ import { Button } from '../../components/ui/Button';
 import { Mail, Lock } from 'lucide-react';
 import { getDashboardForRole, getStoredUserRole } from '../../utils/auth';
 
+/** Unified login portal for both Super Admins and Restaurant Admins. */
 export const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -22,6 +23,7 @@ export const Login: React.FC = () => {
     return <Navigate to={getDashboardForRole(getStoredUserRole())} replace />;
   }
 
+  // Authenticates user credentials and redirects to the appropriate dashboard
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || !password) return;

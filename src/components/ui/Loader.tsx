@@ -6,6 +6,7 @@ interface LoaderProps {
   fullScreen?: boolean;
 }
 
+/** Loading spinner component that can be displayed inline or as a full-screen overlay. */
 export const Loader: React.FC<LoaderProps> = ({ size = 'md', fullScreen = false }) => {
   const sizes = {
     sm: 'w-5 h-5',

@@ -6,6 +6,7 @@ import { Loader } from '../../components/ui/Loader';
 import { Modal } from '../../components/ui/Modal';
 import { BadgeCheck, Clock, CheckCircle, X } from 'lucide-react';
 
+/** Live order management board for tracking, accepting, and fulfilling customer orders. */
 export const Orders: React.FC = () => {
   const [orders, setOrders] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -13,6 +14,7 @@ export const Orders: React.FC = () => {
 
   const [selectedOrder, setSelectedOrder] = useState<any>(null);
 
+  // Fetches recent orders and sorts them by most recent
   const fetchOrders = async () => {
     try {
       const res = await api.restaurant.getOrdersByRestaurant();
@@ -35,6 +37,7 @@ export const Orders: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
+  // Retrieves specific item details for a selected order
   const fetchOrderDetails = async (id: string) => {
     try {
       const res = await api.restaurant.getOrderDetails(id);
@@ -44,6 +47,7 @@ export const Orders: React.FC = () => {
     }
   };
 
+  // Updates the lifecycle status of an order
   const handleUpdateStatus = async (id: string, status: string) => {
     try {
       await api.restaurant.updateOrderStatus(id, status);

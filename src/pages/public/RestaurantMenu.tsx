@@ -10,6 +10,7 @@ import { Modal } from '../../components/ui/Modal';
 import { Input } from '../../components/ui/Input';
 import { Plus, Minus, ArrowRight } from 'lucide-react';
 
+/** Public-facing menu for customers to browse items and place digital orders. */
 export const RestaurantMenu: React.FC = () => {
   const { restaurantId } = useParams();
   const navigate = useNavigate();
@@ -28,6 +29,7 @@ export const RestaurantMenu: React.FC = () => {
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
+    // Fetches the active menu for the given restaurant
     const fetchMenu = async () => {
       if (!restaurantId) return;
       try {
@@ -54,6 +56,7 @@ export const RestaurantMenu: React.FC = () => {
     }
   }, [searchParams, loading, menu, getTotalItems, setSearchParams]);
 
+  // Submits the customer's cart as a new order
   const handlePlaceOrder = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!customerName.trim()) {
@@ -83,6 +86,7 @@ export const RestaurantMenu: React.FC = () => {
     }
   };
 
+  // Calculates the current subtotal of all items in the cart
   const calculateTotal = () => {
     if (!menu?.menuItems) return 0;
     let total = 0;

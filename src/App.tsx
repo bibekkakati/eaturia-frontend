@@ -1,18 +1,18 @@
-import { Routes, Route } from 'react-router';
-import { PublicLayout } from './layouts/PublicLayout';
+import { Route, Routes } from 'react-router';
+import './App.css';
+import { ProtectedRoute } from './components/ProtectedRoute';
 import { AdminLayout } from './layouts/AdminLayout';
-import { Landing } from './pages/public/Landing';
-import { RestaurantMenu } from './pages/public/RestaurantMenu';
-import { OrderStatus } from './pages/public/OrderStatus';
-import { Login } from './pages/admin/Login';
+import { PublicLayout } from './layouts/PublicLayout';
+import { Analytics } from './pages/admin/Analytics';
 import { AdminDashboard } from './pages/admin/Dashboard';
+import { Login } from './pages/admin/Login';
 import { Menus } from './pages/admin/Menus';
 import { Orders } from './pages/admin/Orders';
-import { Analytics } from './pages/admin/Analytics';
+import { Landing } from './pages/public/Landing';
+import { OrderStatus } from './pages/public/OrderStatus';
+import { RestaurantMenu } from './pages/public/RestaurantMenu';
 import { SuperAdminDashboard } from './pages/super-admin/Dashboard';
 import { RestaurantDetails } from './pages/super-admin/RestaurantDetails';
-import { ProtectedRoute } from './components/ProtectedRoute';
-import './App.css';
 
 function App() {
   return (

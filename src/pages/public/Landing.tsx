@@ -4,6 +4,7 @@ import { Button } from '../../components/ui/Button';
 import { Card } from '../../components/ui/Card';
 import { ArrowRight, Utensils, Zap, BarChart3, ShieldCheck, Smartphone, ClipboardList } from 'lucide-react';
 
+/** Public landing page showcasing the Eaturia platform's features and benefits. */
 export const Landing: React.FC = () => {
   const navigate = useNavigate();
 

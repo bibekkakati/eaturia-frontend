@@ -14,6 +14,7 @@ interface CartContextType {
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
+/** Context provider for managing the customer's shopping cart and order persistence. */
 export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [cart, setCart] = useState<Record<string, number>>({});
   const [restaurantId, setRestaurantId] = useState<string | null>(null);

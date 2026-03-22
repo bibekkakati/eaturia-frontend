@@ -6,12 +6,14 @@ import { Loader } from '../../components/ui/Loader';
 import { Button } from '../../components/ui/Button';
 import { CheckCircle, Clock, PackageOpen, ArrowLeft } from 'lucide-react';
 
+/** Real-time order status tracker for customers to monitor their meal progress. */
 export const OrderStatus: React.FC = () => {
   const { orderId } = useParams();
   const [order, setOrder] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Loads the current state of the customer's order
     const fetchOrder = async () => {
       if (!orderId) return;
       try {
@@ -46,6 +48,7 @@ export const OrderStatus: React.FC = () => {
     );
   }
 
+  // Maps internal order status strings to user-friendly UI labels
   const getStatusDisplay = (status: string) => {
     switch(status.toUpperCase()) {
       case 'PENDING': return { text: 'Pending Confirmation', color: 'text-yellow-600', icon: <Clock className="w-6 h-6 text-yellow-600" /> };

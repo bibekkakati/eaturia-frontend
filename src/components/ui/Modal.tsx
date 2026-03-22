@@ -10,6 +10,7 @@ interface ModalProps {
   maxWidth?: string;
 }
 
+/** Accessible portal-based modal for overlays, forms, and alerts. */
 export const Modal: React.FC<ModalProps> = ({
   isOpen,
   onClose,
