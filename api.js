@@ -74,24 +74,25 @@
  * @property {T} [data] - The actual payload returned from the server
  */
 
-const BASE_URL = import.meta.env.VITE_API_URL || 'https://eaturia-backend.onrender.com/api/v1';
+const BASE_URL = import.meta.env.VITE_API_URL + "/api/v1"; // Base URL for the API
 
 // Helper to get auth headers
 const getHeaders = () => {
     // Determine how you want to manage the token (e.g., localStorage, context, cookie)
-    const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+    const token =
+        typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
     return {
-        'Content-Type': 'application/json',
-        ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+        "Content-Type": "application/json",
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
     };
 };
 
 /**
  * Generic request handler
  * @template T
- * @param {string} endpoint 
- * @param {RequestInit} [options={}] 
+ * @param {string} endpoint
+ * @param {RequestInit} [options={}]
  * @returns {Promise<APIResponse<T>>}
  */
 const request = async (endpoint, options = {}) => {
@@ -104,7 +105,7 @@ const request = async (endpoint, options = {}) => {
         const data = await response.json();
 
         if (!response.ok) {
-            throw new Error(data.message || 'API request failed');
+            throw new Error(data.message || "API request failed");
         }
 
         return data;
@@ -120,14 +121,15 @@ export const api = {
     // -------------------------
     auth: {
         /**
-         * @param {string} email 
-         * @param {string} password 
+         * @param {string} email
+         * @param {string} password
          * @returns {Promise<APIResponse<{ token: string }>>}
          */
-        login: (email, password) => request('/auth/login', {
-            method: 'POST',
-            body: JSON.stringify({ email, password })
-        })
+        login: (email, password) =>
+            request("/auth/login", {
+                method: "POST",
+                body: JSON.stringify({ email, password }),
+            }),
     },
 
     // -------------------------
@@ -135,67 +137,74 @@ export const api = {
     // -------------------------
     admin: {
         /**
-         * @param {Pick<Restaurant, "name"|"address"|"phone"|"description"|"logo">} data 
+         * @param {Pick<Restaurant, "name"|"address"|"phone"|"description"|"logo">} data
          * @returns {Promise<APIResponse<Restaurant>>}
          */
-        createRestaurant: (data) => request('/admin/restaurant', {
-            method: 'POST',
-            body: JSON.stringify(data)
-        }),
+        createRestaurant: (data) =>
+            request("/admin/restaurant", {
+                method: "POST",
+                body: JSON.stringify(data),
+            }),
 
         /**
-         * @param {string} id 
-         * @param {string} email 
-         * @param {string} password 
+         * @param {string} id
+         * @param {string} email
+         * @param {string} password
          * @returns {Promise<APIResponse<{ id: string }>>}
          */
-        createRestaurantAdmin: (id, email, password) => request('/admin/restaurant-admin', {
-            method: 'POST',
-            body: JSON.stringify({ id, email, password })
-        }),
+        createRestaurantAdmin: (id, email, password) =>
+            request("/admin/restaurant-admin", {
+                method: "POST",
+                body: JSON.stringify({ id, email, password }),
+            }),
 
         /**
-         * @param {string} id 
-         * @param {Partial<Restaurant>} data 
+         * @param {string} id
+         * @param {Partial<Restaurant>} data
          * @returns {Promise<APIResponse<Restaurant>>}
          */
-        updateRestaurant: (id, data) => request(`/admin/restaurant/${id}`, {
-            method: 'PUT',
-            body: JSON.stringify(data)
-        }),
+        updateRestaurant: (id, data) =>
+            request(`/admin/restaurant/${id}`, {
+                method: "PUT",
+                body: JSON.stringify(data),
+            }),
 
         /**
-         * @param {string} id 
-         * @param {boolean} isActive 
+         * @param {string} id
+         * @param {boolean} isActive
          * @returns {Promise<APIResponse<Restaurant>>}
          */
-        markRestaurantStatus: (id, isActive) => request(`/admin/restaurant-status/${id}`, {
-            method: 'PUT',
-            body: JSON.stringify({ isActive })
-        }),
+        markRestaurantStatus: (id, isActive) =>
+            request(`/admin/restaurant-status/${id}`, {
+                method: "PUT",
+                body: JSON.stringify({ isActive }),
+            }),
 
         /**
          * @returns {Promise<APIResponse<Restaurant[]>>}
          */
-        getRestaurants: () => request('/admin/restaurant-list', {
-            method: 'GET'
-        }),
+        getRestaurants: () =>
+            request("/admin/restaurant-list", {
+                method: "GET",
+            }),
 
         /**
-         * @param {string} id 
+         * @param {string} id
          * @returns {Promise<APIResponse<Restaurant>>}
          */
-        getRestaurantDetails: (id) => request(`/admin/restaurant/${id}`, {
-            method: 'GET'
-        }),
+        getRestaurantDetails: (id) =>
+            request(`/admin/restaurant/${id}`, {
+                method: "GET",
+            }),
 
         /**
-         * @param {string} id 
+         * @param {string} id
          * @returns {Promise<APIResponse<UserAdmin[]>>}
          */
-        getRestaurantAdminList: (id) => request(`/admin/restaurant-admin/${id}`, {
-            method: 'GET'
-        })
+        getRestaurantAdminList: (id) =>
+            request(`/admin/restaurant-admin/${id}`, {
+                method: "GET",
+            }),
     },
 
     // -------------------------
@@ -203,7 +212,7 @@ export const api = {
     // -------------------------
     public: {
         /**
-         * @param {Object} data 
+         * @param {Object} data
          * @param {string} data.customerName
          * @param {string} [data.customerPhone]
          * @param {string} data.restaurantId
@@ -211,26 +220,29 @@ export const api = {
          * @param {Record<string, number>} data.cart - Format: { itemId: quantity }
          * @returns {Promise<APIResponse<Order>>}
          */
-        createOrder: (data) => request('/public/order', {
-            method: 'POST',
-            body: JSON.stringify(data)
-        }),
+        createOrder: (data) =>
+            request("/public/order", {
+                method: "POST",
+                body: JSON.stringify(data),
+            }),
 
         /**
-         * @param {string} id 
+         * @param {string} id
          * @returns {Promise<APIResponse<Order>>}
          */
-        getOrderDetails: (id) => request(`/public/order/${id}`, {
-            method: 'GET'
-        }),
+        getOrderDetails: (id) =>
+            request(`/public/order/${id}`, {
+                method: "GET",
+            }),
 
         /**
-         * @param {string} id 
+         * @param {string} id
          * @returns {Promise<APIResponse<Menu>>}
          */
-        getRestaurantMenu: (id) => request(`/public/menu/${id}`, {
-            method: 'GET'
-        })
+        getRestaurantMenu: (id) =>
+            request(`/public/menu/${id}`, {
+                method: "GET",
+            }),
     },
 
     // -------------------------
@@ -238,99 +250,110 @@ export const api = {
     // -------------------------
     restaurant: {
         /**
-         * @param {Object} data 
+         * @param {Object} data
          * @param {string} data.name
          * @param {Omit<MenuItem, "_id"|"isActive">[]} data.menuItems
          * @param {string} [data.template]
          * @returns {Promise<APIResponse<Menu>>}
          */
-        createMenu: (data) => request('/restaurant/menu', {
-            method: 'POST',
-            body: JSON.stringify(data)
-        }),
+        createMenu: (data) =>
+            request("/restaurant/menu", {
+                method: "POST",
+                body: JSON.stringify(data),
+            }),
 
         /**
-         * @param {string} id 
-         * @param {Partial<Pick<Menu, "name"|"menuItems">>} data 
+         * @param {string} id
+         * @param {Partial<Pick<Menu, "name"|"menuItems">>} data
          * @returns {Promise<APIResponse<Menu>>}
          */
-        updateMenu: (id, data) => request(`/restaurant/menu/${id}`, {
-            method: 'PUT',
-            body: JSON.stringify(data)
-        }),
+        updateMenu: (id, data) =>
+            request(`/restaurant/menu/${id}`, {
+                method: "PUT",
+                body: JSON.stringify(data),
+            }),
 
         /**
-         * @param {string} id 
+         * @param {string} id
          * @returns {Promise<APIResponse<null>>}
          */
-        liveMenu: (id) => request(`/restaurant/menu-live/${id}`, {
-            method: 'PUT'
-        }),
+        liveMenu: (id) =>
+            request(`/restaurant/menu-live/${id}`, {
+                method: "PUT",
+            }),
 
         /**
-         * @param {string} id 
-         * @param {string} status 
+         * @param {string} id
+         * @param {string} status
          * @returns {Promise<APIResponse<null>>}
          */
-        updateOrderStatus: (id, status) => request(`/restaurant/order-status/${id}`, {
-            method: 'PUT',
-            body: JSON.stringify({ status })
-        }),
+        updateOrderStatus: (id, status) =>
+            request(`/restaurant/order-status/${id}`, {
+                method: "PUT",
+                body: JSON.stringify({ status }),
+            }),
 
         /**
-         * @param {string} id 
+         * @param {string} id
          * @returns {Promise<APIResponse<null>>}
          */
-        deleteMenu: (id) => request(`/restaurant/menu/${id}`, {
-            method: 'DELETE'
-        }),
+        deleteMenu: (id) =>
+            request(`/restaurant/menu/${id}`, {
+                method: "DELETE",
+            }),
 
         /**
          * @returns {Promise<APIResponse<Pick<Menu, "_id"|"name"|"isActive">[]>>}
          */
-        getMenusByRestaurant: () => request('/restaurant/menu-list', {
-            method: 'GET'
-        }),
+        getMenusByRestaurant: () =>
+            request("/restaurant/menu-list", {
+                method: "GET",
+            }),
 
         /**
-         * @param {string} id 
+         * @param {string} id
          * @returns {Promise<APIResponse<Menu>>}
          */
-        getMenuById: (id) => request(`/restaurant/menu/${id}`, {
-            method: 'GET'
-        }),
+        getMenuById: (id) =>
+            request(`/restaurant/menu/${id}`, {
+                method: "GET",
+            }),
 
         /**
          * @returns {Promise<APIResponse<Restaurant>>}
          */
-        getRestaurantDetails: () => request('/restaurant/', {
-            method: 'GET'
-        }),
+        getRestaurantDetails: () =>
+            request("/restaurant/", {
+                method: "GET",
+            }),
 
         /**
          * @returns {Promise<APIResponse<UserAdmin[]>>}
          */
-        getRestaurantAdminList: () => request('/restaurant/admin-list', {
-            method: 'GET'
-        }),
+        getRestaurantAdminList: () =>
+            request("/restaurant/admin-list", {
+                method: "GET",
+            }),
 
         /**
          * Omit items array based on getOrdersByRestaurant controller projection { items: 0 }
          * @returns {Promise<APIResponse<Omit<Order, "items">[]>>}
          */
-        getOrdersByRestaurant: () => request('/restaurant/order-list', {
-            method: 'GET'
-        }),
+        getOrdersByRestaurant: () =>
+            request("/restaurant/order-list", {
+                method: "GET",
+            }),
 
         /**
          * Pick items array based on getOrderDetails controller projection { items: 1 }
-         * @param {string} id 
+         * @param {string} id
          * @returns {Promise<APIResponse<Pick<Order, "_id"|"items">>>}
          */
-        getOrderDetails: (id) => request(`/restaurant/order/${id}`, {
-            method: 'GET'
-        })
-    }
+        getOrderDetails: (id) =>
+            request(`/restaurant/order/${id}`, {
+                method: "GET",
+            }),
+    },
 };
 
 export default api;
